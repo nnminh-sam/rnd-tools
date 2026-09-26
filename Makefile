@@ -1,10 +1,13 @@
 ENGINE := plugins/rnd/engine
 UV := uv run --project $(ENGINE)
 
-.PHONY: sync test lint format demo validate details eval eval-all
+.PHONY: sync hooks test lint format demo validate details eval eval-all
 
-sync:        ## install engine dependencies
+sync: hooks  ## install engine dependencies (and the git hooks)
 	uv sync --project $(ENGINE)
+
+hooks:       ## enforce the commit convention (CONTRIBUTING.md) in this clone
+	git config core.hooksPath .githooks && git config commit.template .gitmessage
 
 test:        ## engine unit + integration tests (no model calls)
 	cd $(ENGINE) && uv run pytest -q

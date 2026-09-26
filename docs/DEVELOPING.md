@@ -18,7 +18,9 @@ uv run pytest -q
 uv run ruff check src tests tools && uv run ruff format --check src tests tools
 ```
 
-Or from the repo root: `make test`, `make lint`, `make demo`, `make eval`.
+Or from the repo root: `make sync` (also turns on the commit-message hook — see
+[CONTRIBUTING.md](../CONTRIBUTING.md#commit-messages)), `make test`, `make lint`,
+`make demo`, `make eval`.
 
 Load your working copy into Claude Code without installing it:
 

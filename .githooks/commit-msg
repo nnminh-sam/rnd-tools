@@ -1,0 +1,81 @@
+#!/bin/sh
+# commit-msg: enforce the commit convention in CONTRIBUTING.md.
+# Turn it on once per clone with `make hooks` (sets core.hooksPath to .githooks).
+#
+#   <type>(<scope>): <summary>
+#
+#   - <bullet summarising a change>
+#   - <another bullet>
+#
+# type:  feat | fix | chore | hot-fix
+# scope: one or more repo components (see SCOPES), comma-separated, each optionally
+#        narrowed to one item: fix(skill/ask): …   feat(skill,agent): …
+# No Co-Authored-By trailers.
+
+TYPES="feat fix chore hot-fix"
+# keep in sync with the scope table in CONTRIBUTING.md (a test checks it)
+SCOPES="skill agent hook mcp engine extract index sql verify render edit capture cli setup demo eval test docs plugin repo"
+
+awk -v types=" $TYPES " -v scopes=" $SCOPES " '
+function fail(m) { errors = errors "  - " m "\n" }
+
+# what git will store: comment lines dropped, nothing below the scissors line (commit -v)
+/^# -+ >8 -+$/ { cut = 1 }
+cut || /^#/ { next }
+{ lines[++n] = $0 }
+
+END {
+    while (n > 0 && lines[n] ~ /^[ \t]*$/) n--            # trailing blank lines
+    if (n == 0) exit 0                                    # git aborts empty messages itself
+    header = lines[1]
+    if (header ~ /^(Merge |Revert "|fixup! |squash! |amend! )/) exit 0
+
+    if (header !~ /^[a-z-]+\([^)]*\): /) {
+        fail("header must be <type>(<scope>): <summary>, e.g. feat(skill): new data crawling skill")
+    } else {
+        type = substr(header, 1, index(header, "(") - 1)
+        if (index(types, " " type " ") == 0)
+            fail("type \"" type "\" is not one of:" types)
+        inside = substr(header, index(header, "(") + 1)
+        inside = substr(inside, 1, index(inside, ")") - 1)
+        if (inside == "") fail("scope is empty")
+        k = split(inside, parts, ",")
+        for (i = 1; i <= k; i++) {
+            scope = parts[i]; item = ""
+            if (index(scope, "/")) { item = substr(scope, index(scope, "/") + 1); scope = substr(scope, 1, index(scope, "/") - 1) }
+            if (index(scopes, " " scope " ") == 0)
+                fail("scope \"" scope "\" is not a component; use one of:" scopes)
+            if (index(parts[i], "/") && item !~ /^[a-z0-9][a-z0-9._-]*$/)
+                fail("scope item \"" item "\" must be lower-case, e.g. skill/ask")
+        }
+        summary = substr(header, index(header, "): ") + 3)
+        if (summary ~ /^[ \t]*$/) fail("summary after \"): \" is empty")
+        if (summary ~ /^[A-Z][a-z]/) fail("start the summary in lower case (acronyms such as README or P2 are fine)")
+        if (summary ~ /\.$/) fail("no full stop at the end of the summary")
+    }
+    if (length(header) > 72) fail("header is " length(header) " characters; keep it within 72")
+
+    if (n == 1) {
+        fail("add a body: a blank line, then \"- \" bullet points summarising the changes")
+    } else {
+        if (lines[2] !~ /^[ \t]*$/) fail("leave one blank line between the header and the bullets")
+        bullets = 0
+        for (i = 3; i <= n; i++) {
+            line = lines[i]
+            if (line ~ /^- [^ ]/) { bullets++; continue }
+            if (line ~ /^  [^ ]/ && bullets > 0) continue     # wrapped bullet
+            if (line ~ /^[ \t]*$/) continue
+            if (tolower(line) ~ /^co-authored-by:/) continue  # reported below
+            fail("line " i " is not a bullet: start it with \"- \" (or indent two spaces to continue one)")
+        }
+        if (bullets == 0) fail("the body needs at least one \"- \" bullet")
+    }
+    for (i = 1; i <= n; i++)
+        if (tolower(lines[i]) ~ /^co-authored-by:/) fail("remove the Co-Authored-By line (line " i "): no co-author footers")
+
+    if (errors != "") {
+        printf "commit-msg: the message does not follow the convention (CONTRIBUTING.md):\n%s", errors > "/dev/stderr"
+        printf "\nExample:\n  feat(skill): new data crawling skill\n\n  - add /rnd:crawl to capture a site section\n  - index captured pages on save\n" > "/dev/stderr"
+        exit 1
+    }
+}' "$1"
