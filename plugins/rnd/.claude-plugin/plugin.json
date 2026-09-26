@@ -1,0 +1,9 @@
+{
+  "name": "rnd",
+  "displayName": "RnD — precise, low-cost research & development toolkit",
+  "version": "0.2.0",
+  "description": "Work with Word, Excel, PowerPoint and PDF research files precisely and cheaply: a local index with cited search, exact SQL over spreadsheets, verified reports/decks/memos, grounded brainstorming and decision support. Haiku and Sonnet do the work; Opus is used only to reason over compact, verified evidence.",
+  "author": { "name": "RnD maintainers" },
+  "license": "MIT",
+  "keywords": ["research", "r&d", "office", "docx", "xlsx", "pptx", "pdf", "rag", "citations", "cost"]
+}

@@ -1,0 +1,98 @@
+{
+  "targets": {
+    "retail_price_usd": 349,
+    "unit_cost_max_usd": 120.0,
+    "base_max_mm": 600,
+    "recycled_min_pct": 50.0,
+    "assembly_max_min": 10,
+    "shell_cycles": 120000,
+    "armrest_cycles": 60000
+  },
+  "interview_theme_counts": {
+    "footprint": 8,
+    "back": 7,
+    "assembly": 5,
+    "armrests": 5,
+    "sustainability": 5,
+    "price": 5
+  },
+  "interviews_total": 12,
+  "shell_mean_cycles": {
+    "PP-GF30 virgin": 176333.33,
+    "rPP-50": 148250,
+    "rPP-100": 107833.33,
+    "PA11-GF bio": 197466.67
+  },
+  "shell_min_cycles": {
+    "PP-GF30 virgin": 165200,
+    "rPP-50": 139800,
+    "rPP-100": 88300,
+    "PA11-GF bio": 188500
+  },
+  "shell_samples_passing": {
+    "PP-GF30 virgin": 6,
+    "rPP-50": 6,
+    "rPP-100": 2,
+    "PA11-GF bio": 6
+  },
+  "competitors_under_400_base_le_600": [
+    "FlexiSit Mini",
+    "Nook Chair",
+    "Pivot One"
+  ],
+  "competitors_recycled_ge_50": [
+    "Terra Task"
+  ],
+  "assembly_mean_min": 11.6,
+  "armrest_crack_cycles": [
+    38500,
+    41200
+  ],
+  "configs": {
+    "baseline_P2": {
+      "unit_cost_usd": 116.85,
+      "recycled_pct": 46.81,
+      "mass_kg": 13.1
+    },
+    "option_A": {
+      "unit_cost_usd": 117.21,
+      "recycled_pct": 46.67,
+      "mass_kg": 13.14
+    },
+    "option_B": {
+      "unit_cost_usd": 117.95,
+      "recycled_pct": 47.93,
+      "mass_kg": 13.22
+    },
+    "option_C": {
+      "unit_cost_usd": 121.75,
+      "recycled_pct": 44.64,
+      "mass_kg": 13.2
+    },
+    "baseline_P2_eco": {
+      "unit_cost_usd": 118.15,
+      "recycled_pct": 53.45,
+      "mass_kg": 13.1
+    },
+    "option_A_eco": {
+      "unit_cost_usd": 118.51,
+      "recycled_pct": 53.29,
+      "mass_kg": 13.14
+    },
+    "option_B_eco": {
+      "unit_cost_usd": 119.25,
+      "recycled_pct": 54.51,
+      "mass_kg": 13.22
+    },
+    "option_C_eco": {
+      "unit_cost_usd": 123.05,
+      "recycled_pct": 51.23,
+      "mass_kg": 13.2
+    },
+    "option_C_eco_hanoi_shell": {
+      "unit_cost_usd": 122.3,
+      "recycled_pct": 51.23,
+      "mass_kg": 13.2
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "rnd-tools",
+  "owner": { "name": "RnD maintainers" },
+  "metadata": {
+    "description": "Tools for R&D teams working with Office and PDF documents in Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "rnd",
+      "source": "./plugins/rnd",
+      "description": "Precise, low-cost R&D toolkit: cited search over Word/Excel/PowerPoint/PDF, exact SQL, verified reports and decks, grounded brainstorming and decisions.",
+      "category": "productivity"
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "pre-read"
+            ],
+            "if": "Read(**/*.pdf)",
+            "timeout": 20
+          },
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "pre-read"
+            ],
+            "if": "Read(**/*.docx)",
+            "timeout": 20
+          },
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "pre-read"
+            ],
+            "if": "Read(**/*.xlsx)",
+            "timeout": 20
+          },
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "pre-read"
+            ],
+            "if": "Read(**/*.xlsm)",
+            "timeout": 20
+          },
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "pre-read"
+            ],
+            "if": "Read(**/*.pptx)",
+            "timeout": 20
+          },
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "pre-read"
+            ],
+            "if": "Read(**/*.doc)",
+            "timeout": 20
+          },
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "pre-read"
+            ],
+            "if": "Read(**/*.xls)",
+            "timeout": 20
+          },
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "pre-read"
+            ],
+            "if": "Read(**/*.ppt)",
+            "timeout": 20
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "post-write"
+            ],
+            "if": "Write(**/*.md)",
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "post-write"
+            ],
+            "if": "Edit(**/*.md)",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "session-start"
+            ],
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "session-index"
+            ],
+            "async": true
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--quiet",
+              "--frozen",
+              "--project",
+              "${CLAUDE_PLUGIN_ROOT}/engine",
+              "rnd-hook",
+              "prompt"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

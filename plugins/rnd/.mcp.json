@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "rnd": {
+      "command": "uv",
+      "args": ["run", "--quiet", "--frozen", "--project", "${CLAUDE_PLUGIN_ROOT}/engine", "rnd-mcp"]
+    }
+  }
+}

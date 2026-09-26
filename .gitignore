@@ -1,0 +1,17 @@
+# Python / uv
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# RnD workspaces created while testing
+.rnd/
+plugins/rnd/evals/results/
+
+# OS / editors
+.DS_Store
+~$*
+.idea/
+.vscode/
