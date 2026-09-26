@@ -25,6 +25,6 @@ working directory; `--keep-model` means do not change the folder's default model
 If the `setup` tool is not available (the RnD MCP server did not start):
 1. Run `uv --version`. If uv is missing, tell the user to install it from
    https://docs.astral.sh/uv/getting-started/installation/ and stop.
-2. Run `uv sync --project "${CLAUDE_PLUGIN_ROOT}/engine"` (first install takes about a
+2. Run `uv sync --frozen --no-dev --project "${CLAUDE_PLUGIN_ROOT}/engine"` (first install takes about a
    minute), then ask the user to run `/mcp`, reconnect the `plugin:rnd:rnd` server and
    run `/rnd:setup` again.
