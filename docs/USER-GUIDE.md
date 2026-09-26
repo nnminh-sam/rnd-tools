@@ -15,6 +15,22 @@ those. You only need the commands below and three habits.
 3. **Trust citations, not prose.** Every fact carries `[@doc#anchor]` or `[@calc:N]`. If a
    sentence has a number and no citation, it has not been checked.
 
+## Installing
+
+Once per computer, in a terminal (needs `git` and [uv](https://docs.astral.sh/uv/)):
+
+```bash
+claude plugin marketplace add nnminh-sam/rnd-tools
+```
+
+```bash
+claude plugin install rnd@rnd-tools
+```
+
+Restart Claude Code. To get a newer version later: `claude plugin marketplace update
+rnd-tools`, then `claude plugin update rnd@rnd-tools`, and restart (or turn on
+auto-update in `/plugin` → Marketplaces).
+
 ## Setting up a project
 
 1. Create a folder for the project (one workspace per product or research topic works

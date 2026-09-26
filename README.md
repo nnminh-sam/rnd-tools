@@ -29,18 +29,57 @@ you ──/rnd:report──▶ Sonnet orchestrator ─┬─▶ librarian (Haiku
 
 ## Quick start
 
-Requirements: Claude Code, and [uv](https://docs.astral.sh/uv/getting-started/installation/)
-(it installs the Python engine and its dependencies on first use — about a minute).
+Requirements: Claude Code, `git`, and [uv](https://docs.astral.sh/uv/getting-started/installation/).
+uv installs the Python engine and its dependencies the first time a session starts
+(about 200 MB; seconds on a fast connection, a minute or two on a slow one — Python 3.12
+is downloaded too if you don't have it).
+
+### Install from GitHub
+
+In your terminal:
 
 ```bash
-claude plugin marketplace add /path/to/rnd-tools
+claude plugin marketplace add nnminh-sam/rnd-tools
 ```
 
 ```bash
 claude plugin install rnd@rnd-tools
 ```
 
-Then, in Claude Code, open your project folder and run:
+Or inside a Claude Code session: `/plugin marketplace add nnminh-sam/rnd-tools`, then
+`/plugin install rnd@rnd-tools`. The full URL works too:
+`claude plugin marketplace add https://github.com/nnminh-sam/rnd-tools`.
+
+Restart Claude Code after installing. If the clone fails because your machine has no
+GitHub SSH key, set `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` and run the add command again.
+
+### Update
+
+New versions are not installed automatically unless you turn on auto-update (`/plugin` →
+Marketplaces → `rnd-tools` → Enable auto-update). To update by hand:
+
+```bash
+claude plugin marketplace update rnd-tools
+```
+
+```bash
+claude plugin update rnd@rnd-tools
+```
+
+Then restart Claude Code.
+
+### Share with a team
+
+To have everyone who opens a shared project folder offered RnD, run this once in that
+folder and commit (or share) the `.claude/settings.json` it writes:
+
+```bash
+claude plugin marketplace add nnminh-sam/rnd-tools --scope project
+```
+
+### First steps
+
+Open Claude Code in your project folder and run:
 
 ```
 /rnd:setup
@@ -52,7 +91,7 @@ Or learn on a realistic furniture R&D project first:
 /rnd:tutorial
 ```
 
-Open Claude Code in the folder it creates and follow `TUTORIAL.md` (10 short lessons with
+Open Claude Code in the folder it creates and follow `TUTORIAL.md` (12 short lessons with
 the answers you should get, so you can see the precision for yourself).
 
 > Claude Code ignores a project's `.claude/settings.json` permissions until you have

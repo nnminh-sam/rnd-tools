@@ -1,6 +1,9 @@
 {
   "name": "rnd-tools",
-  "owner": { "name": "RnD maintainers" },
+  "owner": {
+    "name": "nnminh-sam",
+    "url": "https://github.com/nnminh-sam"
+  },
   "metadata": {
     "description": "Tools for R&D teams working with Office and PDF documents in Claude Code."
   },

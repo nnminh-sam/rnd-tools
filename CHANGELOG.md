@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.1 — 2026-09-26
+
+- Install from GitHub: `claude plugin marketplace add nnminh-sam/rnd-tools`, then
+  `claude plugin install rnd@rnd-tools` (README: install, update, team sharing).
+- `plugin.json` gains `homepage` and `repository`; the marketplace owner is `nnminh-sam`.
+- The engine starts with `uv run --frozen --no-dev`, so users' installs skip pytest/ruff.
+- Removed a stray workspace `CLAUDE.md` and `.claude/settings.json` that had been
+  committed inside `plugins/rnd/engine/` and shipped with the plugin.
+
 ## 0.2.0 — 2026-09-26
 
 Fixes from the first live test (a user on Opus running the tutorial). Same lessons from an

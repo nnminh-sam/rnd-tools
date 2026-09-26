@@ -18,13 +18,21 @@ uv run pytest -q
 uv run ruff check src tests tools && uv run ruff format --check src tests tools
 ```
 
-Or from the repo root: `make test`, `make lint`, `make demo`, `make eval`.
+Or from the repo root: `make sync` (also turns on the commit-message hook — see
+[CONTRIBUTING.md](../CONTRIBUTING.md#commit-messages)), `make test`, `make lint`,
+`make demo`, `make eval`.
 
 Load your working copy into Claude Code without installing it:
 
 ```bash
 claude --plugin-dir plugins/rnd
 ```
+
+If you also have the GitHub release installed, disable it while testing
+(`claude plugin disable rnd@rnd-tools`) so the two copies don't both load. Alternatively
+register your checkout as the marketplace (`claude plugin marketplace add
+/path/to/rnd-tools`): a local-directory marketplace loads the files in place, so edits
+apply at the next session start without a version bump.
 
 `claude --plugin-dir plugins/rnd plugin details rnd` prints the component inventory and the
 always-on token cost of skill/agent descriptions — check it when you add or edit them.
@@ -172,7 +180,30 @@ claude plugin eval plugins/rnd --scaffold --mocks off --allow-tools 'mcp__plugin
 
 ## Releasing
 
-1. Bump `version` in `.claude-plugin/plugin.json` and `engine/pyproject.toml`.
-2. `uv lock` in `engine/` if dependencies changed (the MCP server runs with `--frozen`).
-3. Update CHANGELOG.md; run tests, lint and the smoke evals.
-4. Users update with `claude plugin marketplace update rnd-tools` and restart.
+Users install from GitHub (`claude plugin marketplace add nnminh-sam/rnd-tools`). Claude
+Code clones the repository and copies `plugins/rnd/` into its plugin cache, so everything
+the plugin needs must be committed inside `plugins/rnd/` (no Git LFS, no files outside it).
+Users receive a new copy **only when `version` in `plugin.json` changes** — pushing commits
+without a version bump reaches nobody.
+
+1. Bump `version` in `plugins/rnd/.claude-plugin/plugin.json` and `engine/pyproject.toml`
+   (keep them equal; do not also set a version in `marketplace.json`).
+2. Run `uv lock` in `engine/` — the plugin runs `uv run --frozen`, so a stale lock breaks
+   every install.
+3. Update CHANGELOG.md; run `make test lint validate` and the smoke evals.
+4. Check the install as a new user would, in a throwaway config folder, after pushing:
+
+   ```bash
+   CLAUDE_CONFIG_DIR=$(mktemp -d) claude plugin marketplace add nnminh-sam/rnd-tools
+   ```
+
+   then `claude plugin install rnd@rnd-tools` and `claude plugin details rnd` with the
+   same `CLAUDE_CONFIG_DIR`.
+5. Push, and optionally tag the release (`claude plugin tag plugins/rnd` creates
+   `rnd--v<version>`). Users update with `claude plugin marketplace update rnd-tools`,
+   then `claude plugin update rnd@rnd-tools`, and restart.
+
+The plugin launches the engine with `uv run --quiet --frozen --no-dev --project
+${CLAUDE_PLUGIN_ROOT}/engine`. The virtualenv lives in the installed copy and is rebuilt
+per version (fast: uv reuses its download cache); `--no-dev` keeps pytest and ruff out of
+users' installs without removing them from your development venv.

@@ -1,0 +1,11 @@
+
+# <type>(<scope>): <summary — lower case, no full stop, max 72 characters>
+#
+# - <what changed, and why if it is not obvious>
+# - <one bullet per notable change>
+#
+# type:  feat | fix | chore | hot-fix
+# scope: skill agent hook mcp engine extract index sql verify render edit
+#        capture cli setup demo eval test docs plugin repo
+#        several: feat(skill,agent): …   one item: fix(skill/ask): …
+# No Co-Authored-By lines. Full rules: CONTRIBUTING.md
