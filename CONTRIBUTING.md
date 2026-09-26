@@ -14,6 +14,9 @@ Before opening a pull request:
    and check `claude --plugin-dir plugins/rnd plugin details rnd` for the always-on token
    cost.
 4. User-visible changes are listed in CHANGELOG.md.
+5. The pull request follows the template in `.github/pull_request_template.md`: the
+   title uses the commit header format, and the body describes each commit, the user
+   impact, the release steps and how it was tested.
 
 ## Commit messages
 
